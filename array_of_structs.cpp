@@ -15,9 +15,9 @@ struct TemperatureRecord
 const int MAX_DAYS = 31;
 
 // Function Prototypes
-void readTemperatures(TemperatureRecord records[], int size); // TODO: Fix the parameters
-/*void printTemperatures(const ? ? ? );
-TemperatureRecord findMin(const ???);
+void readTemperatures(TemperatureRecord records[], const int size); // TODO: Fix the parameters
+void printTemperatures(const int MAX_DAYS, TemperatureRecord Records[]);
+/*TemperatureRecord findMin(const ? ? ? );
 TemperatureRecord findMax(const ???);
 double findAverage(const );
 */
@@ -30,7 +30,7 @@ int main() {
     // TODO: Step 3 - Call readTemperatures() to load data from file
     readTemperatures(records, MAX_DAYS);
     // TODO: Step 4 - Print the temperatures
-    
+    printTemperatures(MAX_DAYS, records);
     
     // TODO: Step 5 - Compute and display min, max, and average temperature
 
@@ -39,21 +39,31 @@ int main() {
 
 // TODO: Step 6 - Implement readTemperatures()
 // Read from "temps.txt" and store data in the array
-void readTemperatures(TemperatureRecord records[], int size)
+void readTemperatures(TemperatureRecord records[], const int size)
 {
     ifstream dataIn;
     dataIn.open("temps.txt");
     int i = 0;
-    while(i < size && (dataIn >> records[size].day && records[size].temperature))
-    while (dataIn && i < MAX_DAYS)
+    if (!dataIn)
+        cout << "error";
+    while(i < size && dataIn)
     {
-       i++;
+        dataIn >> records[i].day;
+        dataIn >> records[i].temperature;
+        i++;
     }
     
 }
 // TODO: Step 7 - Implement printTemperatures()
 // Print all stored temperatures in a formatted table
-
+void printTemperatures(const int MAX_DAYS, TemperatureRecord Records[])
+{
+    cout << "Day Temp" << endl;
+    for (int i=0; i < MAX_DAYS;i++)
+    {
+        cout << Records[i].day << "   " << Records[i].temperature << endl;
+    }
+}
 // TODO: Step 8 - Implement findMin()
 // Return the TemperatureRecord with the lowest temperature
 
